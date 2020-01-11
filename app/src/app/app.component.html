@@ -1,0 +1,40 @@
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+  <h1 class="display-4">What Is In The Fridge?</h1>
+  <p class="lead">
+    Start entering the ingredients you have in your fridge to get a recipe suggestion.
+  </p>
+  <div class="input-group mb-3 w-25 mx-auto d-none d-xl-flex" (keyup.enter)="addIngredient(ingredient)">
+    <input type="text" class="form-control text-uppercase" [(ngModel)]="ingredient" autofocus placeholder="Ingredient"
+      aria-label="Ingredient" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" type="button" (click)="addIngredient(ingredient)">Add</button>
+    </div>
+  </div>
+  <div class="input-group mb-3 w-50 mx-auto d-none d-sm-flex d-xl-none" (keyup.enter)="addIngredient(ingredient)">
+    <input type="text" class="form-control text-uppercase" [(ngModel)]="ingredient" autofocus placeholder="Ingredient"
+      aria-label="Ingredient" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" type="button" (click)="addIngredient(ingredient)">Add</button>
+    </div>
+  </div>
+  <div class="input-group mb-3 w-75 mx-auto d-flex d-sm-none" (keyup.enter)="addIngredient(ingredient)">
+    <input type="text" class="form-control text-uppercase" [(ngModel)]="ingredient" autofocus placeholder="Ingredient"
+      aria-label="Ingredient" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-primary" type="button" (click)="addIngredient(ingredient)">Add</button>
+    </div>
+  </div>
+  <div class="w-75 mx-auto text-break">
+    <span *ngFor="let ing of ingredientList" class="">
+      <span class="border border-dark rounded mr-2">
+        <span class="pl-1 pr-1 pt-1 pb-1 text-uppercase">{{ing}}</span>
+        <span class="text-danger pr-1" (click)="removeIngredient(ing)"><i class="far fa-times-circle"></i></span>
+      </span>
+    </span>
+  </div>
+  <div>
+    <button class="btn btn-success mt-2" type="button" (click)="search()" [disabled]="ingredientList.length < 1">
+      Find Recipes
+    </button>
+  </div>
+</div>

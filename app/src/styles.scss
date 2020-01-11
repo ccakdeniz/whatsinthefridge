@@ -1,0 +1,57 @@
+/* You can add global styles to this file, and also import other style files */
+/* 
+Extra small devices (portrait phones, less than 544px) 
+No media query since this is the default in Bootstrap because it is "mobile first"
+*/
+h1 {
+  font-size: 1rem;
+} /*1rem = 16px*/
+/*
+####################################################
+M E D I A  Q U E R I E S
+####################################################
+*/
+
+/*
+::::::::::::::::::::::::::::::::::::::::::::::::::::
+Bootstrap 4 breakpoints
+*/
+/* Small devices (landscape phones, 544px and up) */
+@media (max-width: 767px) {
+  .lead {
+    font-size: 0.75rem !important;
+  }
+  h1 {
+    font-size: 2rem !important;
+  } /*1rem = 16px*/
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) and (max-width: 991px) {
+  .lead {
+    font-size: 1rem !important;
+  }
+  h1 {
+    font-size: 3rem !important;
+  } /*1rem = 16px*/
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  .lead {
+    font-size: 1.25rem !important;
+  }
+  h1 {
+    font-size: 4rem !important;
+  } /*1rem = 16px*/
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .lead {
+    font-size: 1.5rem !important;
+  }
+  h1 {
+    font-size: 5rem !important;
+  } /*1rem = 16px*/
+}
