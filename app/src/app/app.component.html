@@ -37,4 +37,45 @@
       Find Recipes
     </button>
   </div>
+  <div class="w-75 mx-auto text-break pt-2">
+    <span *ngFor="let error of errors" class="">
+      <div class="alert alert-danger" role="alert">
+        <strong>Error!</strong> {{error}}
+        <span class="text-danger pr-1" (click)="removeError(error)"><i class="far fa-times-circle"></i></span>
+      </div>
+    </span>
+  </div>
+  <div *ngIf="recipes.length > 0" class="w-100 flex-container mx-auto">
+    <div *ngFor="let recipe of recipes" style="width:45%; max-width: 20rem; display: inline-block"
+      class=" text-left rounded border border-dark mr-2 mb-2">
+      <table>
+        <tr>
+          <td>
+            <img class="pl-1 pt-1 pb-1" [src]="recipe.thumbnail" [alt]="recipe.title">
+          </td>
+          <td class="w-100">
+            <h6>
+              {{recipe.title}}
+            </h6>
+            <div style="font-size: 0.7rem;" class="text-uppercase">
+              <span *ngFor="let lstIngredient of recipe.ingredients" class="border border-dark rounded mr-1" [ngClass]="{'bg-warning':ingredientList.indexOf(lstIngredient)>-1}">
+                {{lstIngredient}}
+              </span>
+            </div>
+            <div class="text-right">
+              <a [href]="recipe.href" style="font-size: 0.8rem;" target="_blank">Show Recipe</a>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="">
+      <button class="btn btn-success mt-2" type="button" (click)="getMore(page+1)">
+        Get More Recipes
+      </button>
+      <button class="btn btn-primary ml-2 mt-2" type="button" (click)="clearAll()">
+        Clear
+      </button>
+    </div>
+  </div>
 </div>
