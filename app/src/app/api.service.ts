@@ -11,13 +11,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  apiUrl = 'https://recipe-puppy.p.rapidapi.com';
+  apiUrl = 'https://tasty.p.rapidapi.com';
 
-  GetRecipes(ingredients, page=1) {
-    return this.http.get(this.apiUrl + '/?i=' + ingredients + '&p=' + page, {
+  GetRecipes(ingredients, from=1) {
+    return this.http.get(this.apiUrl + '/recipes/list?q=' + ingredients + '&sizes=20&from=' + from, {
       headers: {
-        "x-rapidapi-host": "recipe-puppy.p.rapidapi.com",
-        "x-rapidapi-key": rapidApiKeys.recipePuppy
+        "x-rapidapi-host": "tasty.p.rapidapi.com",
+        "x-rapidapi-key": rapidApiKeys.apiKey
       }
     })
       .pipe(

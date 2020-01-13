@@ -15,6 +15,8 @@ export class AppComponent {
   isBusy: boolean = false;
   errors: any = [];
   page: number = 1;
+  resultPerPage: number = 20;
+  totalCount: number = 0;
 
   constructor(private apiService: ApiService) { }
 
@@ -30,13 +32,12 @@ export class AppComponent {
   }
 
   search() {
-    var commaSeparatedIngredients = this.buildCommaSeparatedIngredients(this.ingredientList)
+    var commaSeparatedIngredients = this.buildSpacedIngredients(this.ingredientList)
     this.isBusy = true;
     this.recipes = [];
     this.apiService.GetRecipes(commaSeparatedIngredients).subscribe((data: {}) => {
-      data['results'].forEach(recipe => {
-        this.recipes.push(this.formatIngredients(recipe));
-      });
+      this.recipes = data['results'];
+      this.totalCount = data['count'];
     },
       error => {
         this.errors.push(error);
@@ -47,29 +48,21 @@ export class AppComponent {
 
   getMore(page) {
     this.page = page;
-    var commaSeparatedIngredients = this.buildCommaSeparatedIngredients(this.ingredientList)
+    var commaSeparatedIngredients = this.buildSpacedIngredients(this.ingredientList)
     this.isBusy = true;
-    this.apiService.GetRecipes(commaSeparatedIngredients, page).subscribe((data: {}) => {
-      if (this.recipes.indexOf(data['results'][0]) == -1) {
-        data['results'].forEach(recipe => {
-          this.recipes.push(this.formatIngredients(recipe));
-        });
-      }
+    this.apiService.GetRecipes(commaSeparatedIngredients, page * this.resultPerPage).subscribe((data: {}) => {
+      this.totalCount = data['count'];
+      console.log(this.totalCount);
+      console.log(this.recipes.length);
+      data['results'].forEach(recipe => {
+        this.recipes.push(recipe);
+      });
     },
       error => {
         this.errors.push(error);
       }).add(() => {
         this.isBusy = false;
       });
-  }
-
-  formatIngredients(recipe) {
-    let ingredientsArr = recipe.ingredients.split(',');
-    ingredientsArr.forEach(ing => {
-      ing = ing.trim();
-    });
-    recipe.ingredients = ingredientsArr;
-    return recipe;
   }
 
   clearAll() {
@@ -83,12 +76,12 @@ export class AppComponent {
     this.errors.splice(this.errors.indexOf(error), 1);
   }
 
-  buildCommaSeparatedIngredients(ingredients: any[]) {
+  buildSpacedIngredients(ingredients: any[]) {
     var returnStr = '';
     ingredients.forEach((ingredient, idx) => {
       returnStr += ingredient;
       if (idx < ingredients.length - 1) {
-        returnStr += ',';
+        returnStr += ' ';
       }
     });
     return returnStr;

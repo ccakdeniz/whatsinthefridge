@@ -1,11 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
-/* 
-Extra small devices (portrait phones, less than 544px) 
-No media query since this is the default in Bootstrap because it is "mobile first"
-*/
+
 h1 {
   font-size: 1rem;
 } /*1rem = 16px*/
+
+#overlay {
+  position: fixed; /* Sit on top of the page content */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 100%; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer; /* Add a pointer on hover */
+}
+
 /*
 ####################################################
 M E D I A  Q U E R I E S
@@ -55,3 +65,6 @@ Bootstrap 4 breakpoints
     font-size: 5rem !important;
   } /*1rem = 16px*/
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
