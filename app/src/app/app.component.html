@@ -43,6 +43,7 @@
       Find Recipes
     </button>
   </div>
+  <!-- error message display -->
   <div class="w-75 mx-auto text-break pt-2">
     <span *ngFor="let error of errors" class="">
       <div class="alert alert-danger" role="alert">
@@ -51,62 +52,34 @@
       </div>
     </span>
   </div>
-  <div *ngIf="recipes.length > 0" class="w-100 flex-container mx-auto d-none d-lg-inline-block">
-    <div *ngFor="let recipe of recipes" class="" style="width:47%; display: inline-block"
-      class="text-left rounded border border-dark mr-2 mb-2">
-      <table>
-        <tr class="w-100">
-          <td class="w-25">
+  <!-- search results - large > devices -->
+  <div *ngIf="recipes.length > 0" class="w-100 flex-container mx-auto">
+    <div class="w-100 d-inline-block">
+      <div *ngFor="let recipe of recipes" class="d-inline-block text-center rounded border border-dark mr-2 mb-2"
+        style="display: inline-block; height:45vh;">
+        <div class="w-100 mb-2" style="max-width: 26rem;">
+          <div>
             <img class="pl-1 pt-1 pb-1" [src]="recipe.thumbnail_url" [alt]="recipe.name"
-              style="width: 15rem; height:auto; max-height: 10rem;">
-          </td>
-          <td class="w-75 align-top">
+              style="width: 25rem; height:auto; max-height: 30vh;">
+          </div>
+          <div class="align-top text-left pl-1">
             <h6>
               {{recipe.name}}
             </h6>
-            <div style="font-size: 0.7rem;" class="">
+          </div>
+          <div style="font-size: 0.7rem;  height:10vh; overflow-y: auto; overflow-x: hidden;"
+            class="pb-1 pl-1 text-left">
+            <ng-scrollbar>
               <span *ngFor="let section of recipe.sections">
-                <span *ngFor="let component of section.components" class="border border-dark rounded mr-1 mt-1 float-left">
+                <span *ngFor="let component of section.components"
+                  class="border border-dark rounded mr-1 mt-1 text-left">
                   {{component.ingredient.name}}
                 </span>
               </span>
-            </div>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <div class="">
-      <button class="btn btn-success mt-2" type="button" (click)="getMore(page+1)" *ngIf="recipes.length<totalCount-1">
-        Get More Recipes
-      </button>
-      <button class="btn btn-primary ml-2 mt-2" type="button" (click)="clearAll()">
-        Clear
-      </button>
-    </div>
-  </div>
-  <div *ngIf="recipes.length > 0" class="w-100 flex-container mx-auto d-inline-block d-lg-none">
-    <div *ngFor="let recipe of recipes" class="" style="width:90%; display: inline-block"
-      class="text-left rounded border border-dark mr-2 mb-2">
-      <table>
-        <tr class="w-100">
-          <td class="w-25">
-            <img class="pl-1 pt-1 pb-1" [src]="recipe.thumbnail_url" [alt]="recipe.name"
-              style="width: 15rem; height:auto; max-height: 10rem;">
-          </td>
-          <td class="w-75 align-top">
-            <h6>
-              {{recipe.name}}
-            </h6>
-            <div style="font-size: 0.7rem;" class="">
-              <span *ngFor="let section of recipe.sections">
-                <span *ngFor="let component of section.components" class="border border-dark rounded mr-1 mt-1 float-left">
-                  {{component.ingredient.name}}
-                </span>
-              </span>
-            </div>
-          </td>
-        </tr>
-      </table>
+            </ng-scrollbar>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="">
       <button class="btn btn-success mt-2" type="button" (click)="getMore(page+1)" *ngIf="recipes.length<totalCount-1">
