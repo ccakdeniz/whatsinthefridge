@@ -4,7 +4,7 @@
 <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
   <h1 class="display-4">What Is In The Fridge?</h1>
   <p class="lead">
-    Start entering the ingredients you have in your fridge to get a recipe suggestion.
+    Start entering the ingredients you have in your fridge to get recipe suggestions.
   </p>
   <!-- visible only for xl sized devices -->
   <div class="input-group mb-3 w-25 mx-auto d-none d-xl-flex" (keyup.enter)="addIngredient(ingredient)">
@@ -93,6 +93,10 @@
     </div>
   </div>
 </div>
+<!-- footer bar -->
+<div class="w-100 bg-dark mx-auto text-center logo-strip">
+  <img src="../assets/CA Logo - White.png" alt="CA Logo" width="80px" height="auto">
+</div>
 <!-- Modal -->
 <div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel"
   aria-hidden="true">
@@ -115,7 +119,8 @@
         <div class="text-center">
           <span class="mr-2">
             <i class="fas fa-users" style="font-size:1.5rem;"></i>
-            {{activeRecipe.num_servings}} <span *ngIf="activeRecipe.num_servings>1">people</span><span *ngIf="activeRecipe.num_servings<2">person</span>
+            {{activeRecipe.num_servings}} <span *ngIf="activeRecipe.num_servings>1">people</span><span
+              *ngIf="activeRecipe.num_servings<2">person</span>
           </span>
           <span class="mr-2" *ngIf="activeRecipe.cook_time_minutes">
             <i class="fas fa-stopwatch" style="font-size:1.5rem;"></i>
