@@ -17,6 +17,7 @@ export class AppComponent {
   page: number = 1;
   resultPerPage: number = 20;
   totalCount: number = 0;
+  activeRecipe: any = {};
 
   constructor(private apiService: ApiService) { }
 
@@ -85,5 +86,8 @@ export class AppComponent {
       }
     });
     return returnStr;
+  }
+  setActiveRecipe(recipe) {
+    this.activeRecipe = recipe;
   }
 }

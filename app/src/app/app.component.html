@@ -55,9 +55,10 @@
   <!-- search results - large > devices -->
   <div *ngIf="recipes.length > 0" class="w-100 flex-container mx-auto">
     <div class="w-100 d-inline-block">
-      <div *ngFor="let recipe of recipes" class="d-inline-block text-center rounded border border-dark mr-2 mb-2"
-        style="display: inline-block; height:45vh;">
-        <div class="w-100 mb-2" style="max-width: 26rem;">
+      <div *ngFor="let recipe of recipes"
+        class="d-inline-block text-center rounded border border-dark mr-2 mb-2 recipeCard"
+        (click)="setActiveRecipe(recipe)">
+        <div class="w-100 mb-2" style="max-width: 26rem;" data-toggle="modal" data-target="#recipeModal">
           <div>
             <img class="pl-1 pt-1 pb-1" [src]="recipe.thumbnail_url" [alt]="recipe.name"
               style="width: 25rem; height:auto; max-height: 30vh;">
@@ -67,12 +68,13 @@
               {{recipe.name}}
             </h6>
           </div>
-          <div style="font-size: 0.7rem;  height:10vh; overflow-y: auto; overflow-x: hidden;"
-            class="pb-1 pl-1 text-left">
+          <div style="font-size: 0.7rem;  height:10vh; overflow-y: auto; overflow-x: hidden; line-height: 1.3rem;"
+            class="pb-1 pl-1 text-left text-uppercase">
             <ng-scrollbar>
               <span *ngFor="let section of recipe.sections">
                 <span *ngFor="let component of section.components"
-                  class="border border-dark rounded mr-1 mt-1 text-left">
+                  class="border border-dark rounded mr-1 mt-1 text-left"
+                  [ngClass]="{'bg-success': ingredientList.indexOf(component.ingredient.name)>-1}">
                   {{component.ingredient.name}}
                 </span>
               </span>
@@ -88,6 +90,66 @@
       <button class="btn btn-primary ml-2 mt-2" type="button" (click)="clearAll()">
         Clear
       </button>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="recipeModal" tabindex="-1" role="dialog" aria-labelledby="recipeModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{activeRecipe.name}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="ratings mb-2">
+          <span class="mr-2"><i class="far fa-thumbs-up"></i> {{activeRecipe.user_ratings.count_positive}}</span>
+          <span><i class="far fa-thumbs-down"></i> {{activeRecipe.user_ratings.count_negative}}</span>
+        </div>
+        <div class="text-center">
+          <img class="pl-1 pt-1 pb-1 modal-image" [src]="activeRecipe.thumbnail_url" [alt]="activeRecipe.name">
+        </div>
+        <div class="text-center">
+          <span class="mr-2">
+            <i class="fas fa-users" style="font-size:1.5rem;"></i>
+            {{activeRecipe.num_servings}} <span *ngIf="activeRecipe.num_servings>1">people</span><span *ngIf="activeRecipe.num_servings<2">person</span>
+          </span>
+          <span class="mr-2" *ngIf="activeRecipe.cook_time_minutes">
+            <i class="fas fa-stopwatch" style="font-size:1.5rem;"></i>
+            {{activeRecipe.cook_time_minutes}} minutes
+          </span>
+        </div>
+        <div class="text-center">
+          <strong>{{activeRecipe.yields}}</strong>
+        </div>
+        <div>
+          <div>
+            <p>
+              <strong>Ingredient List:</strong>
+            </p>
+          </div>
+          <div>
+            <ul style="line-height: 0.8rem;">
+              <span *ngFor="let section of activeRecipe.sections">
+                <span *ngFor="let component of section.components" class="mr-1 mt-1 text-left">
+                  <li>{{component.raw_text}}</li>
+                </span>
+              </span>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <p>
+            <strong>Instructions</strong>
+          </p>
+          <span *ngFor="let instruction of activeRecipe.instructions">
+            <p>{{instruction.display_text}}</p>
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
